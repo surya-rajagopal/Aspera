@@ -1,0 +1,70 @@
+	/*mytrie.display();
+	if(mytrie.searchWord("catx")) {
+		cout<< "catx exists!!! should not be here, so wrong!!" << endl;
+	} 	
+	if(!mytrie.searchWord("cats")) {
+		cout<< "catx exists!!! should not be here, so wrong!!" << endl;
+	}*/ 	
+	/*cout<< "Prefixes Test"<<endl;
+	vector<string> prefixes = mytrie.findPrefixes("catdogcat");
+	for(int i=0; i<prefixes.size(); i++) {
+		cout<<prefixes[i]<<endl;
+	}
+	cout<< "====================="<<endl;
+	vector<string> prefixes1 = mytrie.findPrefixes("catsdog");
+	for(int i=0; i<prefixes1.size(); i++) {
+		cout<<prefixes1[i]<<endl;
+	}*/
+	
+	/*queue<queueElements> q;
+	for(int i=0;i<sizeof(s)/sizeof(*s);i++) {
+		vector<string> prefixes = mytrie.findPrefixes(s[i]);	
+		queueElements e;				
+		e.word = s[i];
+		string tmp = e.word;
+		for(int i=0; i<prefixes.size(); i++) {
+			e.suffix = tmp.substr(prefixes[i].length()); 
+			q.push(e);
+		}
+	}/
+
+	cout<<"Q Size: " << q.size() << endl;
+	queue<queueElements> copy = q;
+	while(q.size()!= 0) {
+		queueElements  t = copy.front();
+		cout<< "Word: " << t.word <<" | Suffix: " <<t.suffix << endl;	
+		copy.pop();	
+	}*/
+
+
+
+		queueElements e = q.front(); 
+		q.pop();
+		string s1 =  e.word;
+		cout<<"word: " << e.word << " | suffix: " <<e.suffix<<endl; 
+		cout<< "Q size: " <<q.size()<< endl;
+		char *a = new char[e.suffix.size()+1];
+		strcpy(a, e.suffix.c_str());
+		cout<< "a: " << a<<endl;
+		if(mytrie.searchWord(a)|| e.suffix.length() == 0) {
+			int currLength = s1.length();	
+			concatWords++;
+			if(currLength>longestLength) {
+				longestLength = currLength;
+				longestWord = s1;
+
+			}			
+		}	
+		else {
+			vector<string> prefixes = mytrie.findPrefixes(a);
+			if(prefixes.size()>0) {
+				queueElements tmp;
+				tmp.word = e.word;				
+				for(int i=0; i<prefixes.size(); i++) {
+					tmp.suffix = s1.substr(prefixes[i].length()); 
+					cout<< "tmp.word: " <<tmp.word << " |tmp.suffix :" <<tmp.suffix<<endl;
+					q.push(tmp);
+				}
+			}
+		}
+
